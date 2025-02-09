@@ -9,12 +9,12 @@
 
   tasks:
 
-    - name: Telepítse az Nginx csomagot
+    - name: Install the Nginx package
       package:
         name: nginx
         state: present
       
-    - name: Írja át az index.html fájlt
+    - name: Modify the index.html file
       template:
         src: index.j2
         dest: /usr/share/nginx/html/index.html
