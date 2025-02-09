@@ -1,0 +1,28 @@
+---
+- name: nginx install
+  hosts: all
+  become: yes
+  vars:
+    - default_index: "<h1>Moravcsik László</h1>"
+    - custom_message: "<h1>This is a Custom Message for {{ ansible_hostname }}!</h1>"
+  
+
+  tasks:
+
+    - name: Telepítse az Nginx csomagot
+      package:
+        name: nginx
+        state: present
+      
+    - name: Írja át az index.html fájlt
+      template:
+        src: index.j2
+        dest: /usr/share/nginx/html/index.html
+      notify: Restart Nginx
+      
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
